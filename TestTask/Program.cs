@@ -7,6 +7,7 @@ using TestTask.Services.Interfaces;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+// Addadded ->
 
 builder.Services.AddControllers();
 
@@ -17,6 +18,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+//-> there
 builder.Services.AddScoped<IOrderService, OrderService>()
     .AddScoped<IUserService, UserService>();
 
