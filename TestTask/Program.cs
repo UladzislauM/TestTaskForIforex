@@ -1,12 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using TestTask;
 using TestTask.Data;
+using TestTask.Data.Implementations;
+using TestTask.Data.Interfaces;
+using TestTask.Models;
 using TestTask.Services.Implementations;
 using TestTask.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+// Addadded ->
 
 builder.Services.AddControllers();
 
@@ -14,11 +18,14 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddDbContext<ApplicationDbContext>(options => 
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+//-> there
 builder.Services.AddScoped<IOrderService, OrderService>()
-    .AddScoped<IUserService, UserService>();
+    .AddScoped<IUserService, UserService>()
+    .AddScoped<IRepository<User>, UserRepository>()
+    .AddScoped<IRepository<Order>, OrderRepository>();
 
 var app = builder.Build();
 
